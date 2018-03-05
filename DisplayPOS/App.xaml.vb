@@ -1,9 +1,12 @@
-﻿''' <summary>
+﻿Imports Microsoft.AspNet.SignalR.Client
+Imports Microsoft.AspNet.SignalR.Client.Hubs
+''' <summary>
 ''' Stellt das anwendungsspezifische Verhalten bereit, um die Standardanwendungsklasse zu ergänzen.
 ''' </summary>
 NotInheritable Class App
     Inherits Application
-
+    Public MyHubConnection As HubConnection
+    Dim MyHubProxy As HubProxy
     ''' <summary>
     ''' Wird aufgerufen, wenn die Anwendung durch den Endbenutzer normal gestartet wird. Weitere Einstiegspunkte
     ''' werden verwendet, wenn die Anwendung zum Öffnen einer bestimmten Datei, zum Anzeigen
@@ -34,6 +37,12 @@ NotInheritable Class App
                 ' Wenn der Navigationsstapel nicht wiederhergestellt wird, zur ersten Seite navigieren
                 ' und die neue Seite konfigurieren, indem die erforderlichen Informationen als Navigationsparameter
                 ' übergeben werden
+                MyHubConnection = New HubConnection("http://iotservice2018.azurewebsites.net/")
+
+                MyHubProxy = MyHubConnection.CreateHubProxy("MeldungenHub")
+
+
+
                 rootFrame.Navigate(GetType(MainPage), e.Arguments)
             End If
 
